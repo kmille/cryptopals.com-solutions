@@ -6,7 +6,7 @@ from Crypto.Cipher import AES
 def ecb_decrypt(cipher_text: bytes, key: bytes) -> bytes:
     assert len(key) % 16 == 0
     decipher = AES.new(key, AES.MODE_ECB)
-    message = decipher.decrypt(cipher)
+    message = decipher.decrypt(cipher_text)
     return message
 
 if __name__ == '__main__':
