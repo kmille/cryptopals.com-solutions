@@ -2,12 +2,17 @@
 from base64 import b64decode
 from Crypto.Cipher import AES
 
-key = b"YELLOW SUBMARINE"
+
+def ecb_decrypt(cipher_text: bytes, key: bytes) -> bytes:
+    assert len(key) % 16 == 0
+    decipher = AES.new(key, AES.MODE_ECB)
+    message = decipher.decrypt(cipher)
+    return message
 
 if __name__ == '__main__':
     cipher = b64decode(open("7.txt").read())
-    decipher = AES.new(key, AES.MODE_ECB)
-    message = decipher.decrypt(cipher)
+    key = b"YELLOW SUBMARINE"
+    message = ecb_decrypt(cipher, key)
     print(message.decode())
     assert message[:33] == b"I'm back and I'm ringin' the bell"
 
