@@ -1,8 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from typing import List
 from base64 import b64decode
 from binascii import hexlify
-from ipdb import set_trace
 
 from challenge3 import try_cipher
 from challenge5 import repeating_xor
@@ -51,13 +50,14 @@ def get_transposed_chunks(keysize) -> List[bytes]:
 def get_decrypt_key() -> bytes:
     decrypt_key = bytes()
     for chunk in get_transposed_chunks(find_keysizes_with_lowest_hamming_distance()[0]):
-        decrypt_key += try_cipher(chunk)
+        key, __ = try_cipher(chunk)
+        decrypt_key += key
     print("Got decrypt key '{}'".format(decrypt_key.decode()))
     assert decrypt_key == b'Terminator X: Bring the noise'
     return decrypt_key
 
 
-def decrypt_message():
+def decrypt_message() -> None:
     decrypt_key = get_decrypt_key()
     message = repeating_xor(cipher, decrypt_key)
     print(message.decode())

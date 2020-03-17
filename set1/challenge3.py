@@ -1,12 +1,9 @@
-#!/usr/bin/env python
-from typing import Dict
+#!/usr/bin/env python3
+from typing import Dict, Tuple
 from binascii import unhexlify
 import string
 
 from challenge2 import my_xor
-
-
-from ipdb import set_trace
 
 
 def one_try(cipher: bytes, key: bytes) -> bytes:
@@ -50,7 +47,7 @@ def everything_is_in_ascii_range(s: bytes) -> bool:
 assert b"Cooking MC's like a pound of bacon" == one_try(unhexlify("1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"), b"X")
 
 
-def try_cipher(cipher: bytes) -> bytes:
+def try_cipher(cipher: bytes) -> Tuple[bytes, bytes]:
     #alphabet = [x.encode() for x in string.printable]
     alphabet = [bytes([x]) for x in range(256)]
     likelihood_dict: Dict[float, dict] = dict()
@@ -61,12 +58,13 @@ def try_cipher(cipher: bytes) -> bytes:
         likelihood_dict[score]['xored'] = xored
         likelihood_dict[score]['key'] = char
     winner_score = sorted([x for x in likelihood_dict.keys()], reverse=True)[0]
-    print("Our winner is '{}' with key '{}'".format(likelihood_dict[winner_score]['xored'].decode(), likelihood_dict[winner_score]['key'].decode()))
-    return likelihood_dict[winner_score]['key']
+    #print("Our winner is '{}' with key '{}'".format(likelihood_dict[winner_score]['xored'].decode(), likelihood_dict[winner_score]['key'].decode()))
+    print("Our winner is '{}' with key '{}'".format(likelihood_dict[winner_score]['xored'], likelihood_dict[winner_score]['key']))
+    return likelihood_dict[winner_score]['key'], likelihood_dict[winner_score]['xored']
 
 
 if __name__ == '__main__':
     cipher = unhexlify("1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736")
-    try_cipher(cipher)
-
+    key, __ = try_cipher(cipher)
+    assert key == b"X"
 

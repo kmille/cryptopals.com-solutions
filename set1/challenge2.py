@@ -1,6 +1,5 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from binascii import unhexlify, hexlify
-from ipdb import set_trace
 
 input_one = unhexlify("1c0111001f010100061a024b53535009181c")
 input_two = unhexlify("686974207468652062756c6c277320657965")

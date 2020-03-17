@@ -1,7 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from binascii import unhexlify
 from base64 import b64encode
-from ipdb import set_trace
 
 #  https://www.lucidchart.com/techblog/2017/10/23/base64-encoding-a-visual-explanation/
 
@@ -30,7 +29,7 @@ def my_b64encode(inbut):
     assert len(b64_alphabet) == 64
     bit_string = ""
     for char in inbut:
-    bit_string += "{0:08b}".format(ord(char))
+        bit_string += "{0:08b}".format(ord(char))
     if len(bit_string) % 6 != 0:
         bit_string += (6 - (len(bit_string) % 6)) * "0"
     base64_encoded_output = ""
@@ -41,15 +40,15 @@ def my_b64encode(inbut):
     #print(base64_encoded_output)
     return base64_encoded_output
 
-
 assert my_b64encode("a"), "YQ=="
 
-print("input: {}".format(input_string))
-s = my_unhexlify(input_string)
-print("unhexlify: {}".format(s))
-s2 = my_b64encode(s)
-print("base64:: {}".format(s2))
-assert s2, output_string
+if __name__ == '__main__':
+    print("input: {}".format(input_string))
+    s = my_unhexlify(input_string)
+    print("unhexlify: {}".format(s))
+    s2 = my_b64encode(s)
+    print("base64:: {}".format(s2))
+    assert s2, output_string
 
-print("done")
+    print("done")
 

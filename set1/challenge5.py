@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from binascii import hexlify
 
 text = "Burning 'em, if you ain't quick and nimble\nI go crazy when I hear a cymbal"
