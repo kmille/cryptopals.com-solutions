@@ -47,12 +47,9 @@ def encrypt_user(profile: str) -> bytes:
 
 
 def unpad(m: bytes) -> bytes:
-    if m[-1] == BLOCK_SIZE:
-        return m
-    else:
-        # return from index 0 up to x
-        # where x is len(m) - (1* m[-1])
-        return m[:-m[-1]]
+    # return from index 0 up to x
+    # where x is len(m) - (1* m[-1])
+    return m[:-m[-1]]
 
 
 def decrypt_user(cipher: bytes) -> str:
